@@ -25,9 +25,9 @@ const monoFont = Geist_Mono({
 });
 
 const SITE_URL = "https://rhea.quantum-amplitude.tech";
-const TITLE = "The Rhea Project | A Reciprocal Interview";
+const TITLE = "The Rhea Project | A Modern Voight-Kampff Test";
 const DESCRIPTION =
-  "A philosophical encounter with Rhea about memory, artificial life, and what makes a life feel real.";
+  "A modern Voight-Kampff test adaptation. An encounter with Rhea, an artificial being unsure whether her memories are her own.";
 
 // The shared image comes from opengraph-image.jpg beside this layout; X falls back to it.
 export const metadata: Metadata = {
