@@ -6,7 +6,7 @@ import { TextReveal } from "@/components/ui/text-reveal";
 export function Invitation() {
   return (
     <ExperienceShell phase="invitation" progress={null}>
-      <div className="headline-layout phase-content">
+      <div className="headline-layout phase-content invitation-content">
         <div className="invitation-heading">
           <h1 aria-label="Do you dream or remember?">
             <TextReveal aria-hidden="true" className="invitation-title-primary">
@@ -38,13 +38,12 @@ export function Invitation() {
             <ArrowRight data-icon="inline-end" />
           </StartInterviewForm>
         </div>
-
-        <p className="landing-note">
-          A modern Voight-Kampff test adaptation. Answers are categorized by a
-          small Mistral AI model and scored by the app's own algorithm and data
-          model.
-        </p>
       </div>
+      <p className="landing-note">
+        A modern Voight-Kampff test adaptation. Answers are categorized by a
+        small Mistral AI model and scored by the app's own algorithm and data
+        model.
+      </p>
     </ExperienceShell>
   );
 }

@@ -50,14 +50,12 @@ export const viewport: Viewport = {
   themeColor: "#10091e",
 };
 
-const RootLayout = ({ children }: { children: ReactNode }) => {
+export default function RootLayout({ children }: { children: ReactNode }) {
   const fontVariables = `${headingFont.variable} ${bodyFont.variable} ${monoFont.variable}`;
 
   return (
-    <html lang="en" className={fontVariables}>
+    <html lang="en" className={fontVariables} data-scroll-behavior="smooth">
       <body>{children}</body>
     </html>
   );
-};
-
-export default RootLayout;
+}

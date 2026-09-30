@@ -124,6 +124,40 @@ button:not(:disabled),
   color: white;
 }
 
+.portrait-credits {
+  flex-shrink: 0;
+  margin-left: auto;
+  color: var(--muted-foreground);
+  font-family: var(--font-mono), monospace;
+  font-size: var(--text-label);
+  white-space: nowrap;
+}
+
+.qa-credit {
+  display: inline-block;
+  min-height: 2.75rem;
+  padding-block: 0.75rem;
+  border-radius: var(--radius-sm);
+}
+
+.qa-credit:hover,
+.qa-credit:focus-visible {
+  color: var(--foreground);
+}
+
+.qa-credit:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+.qa-mark {
+  display: inline;
+  width: auto;
+  height: 0.853em;
+  margin-left: 0.5rem;
+  vertical-align: -0.134em;
+}
+
 @keyframes portrait-breathe {
   0%,
   100% {
@@ -336,13 +370,24 @@ button:not(:disabled),
   transform: translate(-50%, -50%) rotate(28deg);
 }
 
-.portrait-quote {
+.portrait-caption {
   position: absolute;
-  bottom: 2.25rem;
-  left: 2.25rem;
+  right: max(2.25rem, env(safe-area-inset-right));
+  bottom: calc(1.5rem + env(safe-area-inset-bottom));
+  left: max(2.25rem, env(safe-area-inset-left));
   z-index: 2;
-  width: min(28rem, calc(100% - 4.5rem));
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 0.5rem 1.5rem;
+}
+
+.portrait-quote {
+  flex: 1 1 12rem;
+  max-width: 28rem;
   margin: 0;
+  padding-bottom: 0.75rem;
   color: oklch(0.96 0.022 290);
   font-size: clamp(1rem, 1.45vw, 1.35rem);
   line-height: 1.45;
@@ -383,8 +428,7 @@ button:not(:disabled),
 }
 
 .conversation-panel[data-phase="invitation"] {
-  padding-top: calc(clamp(3rem, 9vh, 6rem) + env(safe-area-inset-top));
-  padding-bottom: calc(clamp(3rem, 9vh, 6rem) + env(safe-area-inset-bottom));
+  padding: 0;
 }
 
 .conversation-panel::before {
@@ -456,6 +500,13 @@ button:not(:disabled),
 
 .invitation-body {
   max-width: 39rem;
+}
+
+.invitation-content {
+  --invitation-inline-padding: clamp(2rem, 5vw, 5.75rem);
+  padding: calc(clamp(3rem, 9vh, 6rem) + env(safe-area-inset-top))
+    max(var(--invitation-inline-padding), env(safe-area-inset-right)) 0
+    max(var(--invitation-inline-padding), env(safe-area-inset-left));
 }
 
 .invitation-heading {
@@ -551,10 +602,14 @@ button:not(:disabled),
 }
 
 .landing-note {
-  max-width: 30rem;
-  margin: 0;
-  align-self: end;
-  justify-self: end;
+  position: relative;
+  z-index: 2;
+  width: min(100%, 32rem);
+  margin: auto 0 0;
+  padding: clamp(1.5rem, 4vh, 3rem) max(1rem, env(safe-area-inset-right))
+    calc(1rem + env(safe-area-inset-bottom))
+    max(1rem, env(safe-area-inset-left));
+  align-self: flex-end;
   color: var(--muted-foreground);
   font-size: var(--text-label);
   line-height: 1.55;
@@ -923,6 +978,10 @@ button:not(:disabled),
     font-size: clamp(3.1rem, 6.2vw, 5.4rem);
   }
 
+  .invitation-content {
+    --invitation-inline-padding: 2.25rem;
+  }
+
   .portrait-orbit {
     left: 61%;
   }
@@ -940,25 +999,20 @@ button:not(:disabled),
   }
 
   .portrait-stage {
-    min-height: min(44svh, 28rem);
-  }
-
-  .portrait-stage:not([data-phase="invitation"]) {
-    min-height: min(32svh, 22rem);
+    min-height: 0;
+    aspect-ratio: 4 / 3;
+    flex-shrink: 0;
   }
 
   .portrait-image {
-    object-position: center 14%;
+    object-position: center 20%;
+    animation: none;
   }
 
-  .portrait-stage:not([data-phase="invitation"]) .portrait-image {
-    object-position: center 10%;
-  }
-
-  .portrait-quote {
-    bottom: 1.5rem;
-    left: 1rem;
-    width: min(26rem, calc(100% - 2rem));
+  .portrait-caption {
+    right: max(1rem, env(safe-area-inset-right));
+    bottom: 0.5rem;
+    left: max(1rem, env(safe-area-inset-left));
   }
 
   .portrait-orbit {
@@ -969,14 +1023,19 @@ button:not(:disabled),
   .conversation-panel {
     min-height: 52svh;
     justify-content: flex-start;
-    padding: 6.25rem max(1.25rem, env(safe-area-inset-right))
-      calc(3.5rem + env(safe-area-inset-bottom))
+    padding: 3rem max(1.25rem, env(safe-area-inset-right))
+      calc(1rem + env(safe-area-inset-bottom))
       max(1.25rem, env(safe-area-inset-left));
     border-top: 1px solid var(--border);
     border-left: 0;
   }
 
   .conversation-panel[data-phase="invitation"] {
+    flex-grow: 1;
+  }
+
+  .invitation-content {
+    --invitation-inline-padding: 1.25rem;
     padding-top: 2.5rem;
   }
 
@@ -986,12 +1045,12 @@ button:not(:disabled),
   }
 
   .landing-note {
-    justify-self: start;
-    text-align: left;
+    align-self: flex-end;
+    text-align: right;
   }
 
   .sequence-rail {
-    top: 2.5rem;
+    top: 1rem;
     right: max(1.25rem, env(safe-area-inset-right));
     left: max(1.25rem, env(safe-area-inset-left));
     max-width: 42rem;
@@ -1018,26 +1077,24 @@ button:not(:disabled),
     font-size: clamp(1.9rem, 6vw, 3rem);
   }
 
+  .answer-input {
+    field-sizing: fixed;
+    height: 6.25rem;
+    min-height: 6.25rem;
+  }
+
   .rhea-reflection h1 {
     max-width: 23ch;
   }
 }
 
 @media (max-width: 560px) {
-  .portrait-stage {
-    min-height: 40svh;
-  }
-
-  .portrait-stage:not([data-phase="invitation"]) {
-    min-height: 28svh;
-  }
-
   .portrait-quote {
     font-size: 0.86rem;
   }
 
-  .portrait-stage[data-phase="question"] .portrait-quote {
-    display: none;
+  .invitation-content {
+    --invitation-inline-padding: 1rem;
   }
 
   .result-heading h1 {
@@ -1045,8 +1102,8 @@ button:not(:disabled),
   }
 
   .conversation-panel {
-    padding: 5.75rem max(1rem, env(safe-area-inset-right))
-      calc(3rem + env(safe-area-inset-bottom))
+    padding: 3rem max(1rem, env(safe-area-inset-right))
+      calc(1rem + env(safe-area-inset-bottom))
       max(1rem, env(safe-area-inset-left));
   }
 

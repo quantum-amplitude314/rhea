@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { QaCredit } from "@/components/qa-credit";
 
 export type Phase = "invitation" | "question" | "reflection" | "result";
 
@@ -26,10 +27,15 @@ export function Portrait({ phase }: { phase: Phase }) {
       <div className="portrait-orbit portrait-orbit-one" aria-hidden="true" />
       <div className="portrait-orbit portrait-orbit-two" aria-hidden="true" />
 
-      <blockquote className="portrait-quote">
-        <span aria-hidden="true">“</span>
-        {lineByPhase[phase]}
-      </blockquote>
+      <div className="portrait-caption">
+        <blockquote className="portrait-quote">
+          <span aria-hidden="true">“</span>
+          {lineByPhase[phase]}
+        </blockquote>
+        <div className="portrait-credits">
+          <QaCredit />
+        </div>
+      </div>
     </aside>
   );
 }
