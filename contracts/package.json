@@ -1,0 +1,13 @@
+{
+  "name": "@rhea/contracts",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "@orpc/contract": "^1.15.1",
+    "zod": "^4.6.5"
+  }
+}

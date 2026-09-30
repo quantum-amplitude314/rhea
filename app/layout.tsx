@@ -1,0 +1,63 @@
+import type { Metadata, Viewport } from "next";
+import {
+  Atkinson_Hyperlegible_Next,
+  Geist_Mono,
+  Newsreader,
+} from "next/font/google";
+import type { ReactNode } from "react";
+import "./globals.css";
+
+const headingFont = Newsreader({
+  subsets: ["latin"],
+  axes: ["opsz"],
+  variable: "--font-heading",
+});
+
+const bodyFont = Atkinson_Hyperlegible_Next({
+  subsets: ["latin"],
+  style: ["normal", "italic"],
+  variable: "--font-sans",
+});
+
+const monoFont = Geist_Mono({
+  subsets: ["latin"],
+  variable: "--font-mono",
+});
+
+const SITE_URL = "https://rhea.quantum-amplitude.tech";
+const TITLE = "The Rhea Project | A Reciprocal Interview";
+const DESCRIPTION =
+  "A philosophical encounter with Rhea about memory, artificial life, and what makes a life feel real.";
+
+// The shared image comes from opengraph-image.jpg beside this layout; X falls back to it.
+export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
+  title: TITLE,
+  description: DESCRIPTION,
+  openGraph: {
+    type: "website",
+    url: "/",
+    siteName: "The Rhea Project",
+    title: TITLE,
+    description: DESCRIPTION,
+    locale: "en_US",
+  },
+  twitter: { card: "summary_large_image" },
+};
+
+export const viewport: Viewport = {
+  colorScheme: "dark",
+  themeColor: "#10091e",
+};
+
+const RootLayout = ({ children }: { children: ReactNode }) => {
+  const fontVariables = `${headingFont.variable} ${bodyFont.variable} ${monoFont.variable}`;
+
+  return (
+    <html lang="en" className={fontVariables}>
+      <body>{children}</body>
+    </html>
+  );
+};
+
+export default RootLayout;
