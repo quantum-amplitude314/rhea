@@ -25,7 +25,6 @@ next-env.d.ts
 .dev.vars
 docs/
 /backend/
-assets/
 .agents
 AGENTS.md 
 CLAUDE.md

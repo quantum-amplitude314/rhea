@@ -1,9 +1,10 @@
 # The Rhea Project
 
-Interactive fiction shaped like a Voight-Kampff test. Rhea, a synthetic being,
-asks five questions and you answer in your own words. A small Mistral AI model
-categorizes each answer; the app's own algorithm and data model decide how Rhea
-replies and what the final verdict is.
+![The Rhea Project: Do you dream or remember?](app/opengraph-image.jpg)
+
+A modern Voight-Kampff test adaptation. Rhea, a synthetic being, asks five questions
+and you answer in your own words. A small Mistral AI model categorizes each answer.
+The app's own algorithm and data model decide how Rhea replies and what the final verdict is.
 
 ## What is in this repository
 
@@ -29,11 +30,11 @@ Browser ──► Next.js on Cloudflare Workers ──► rhea-api Worker
   `contracts/`, forwarding the HttpOnly `rhea_session` cookie.
 - `lib/api-transport.ts` picks the transport:
 
-| Mode | Transport |
-| --- | --- |
-| `bun run dev` | HTTP to `API_URL` (default `http://127.0.0.1:3001`) |
+| Mode              | Transport                                                                        |
+| ----------------- | -------------------------------------------------------------------------------- |
+| `bun run dev`     | HTTP to `API_URL` (default `http://127.0.0.1:3001`)                              |
 | `bun run preview` | Service binding `API` to the local `rhea-api` dev server (Wrangler dev registry) |
-| `bun run deploy` | Service binding `API` to the deployed `rhea-api` Worker |
+| `bun run deploy`  | Service binding `API` to the deployed `rhea-api` Worker                          |
 
 ## Prerequisites
 
@@ -69,11 +70,11 @@ bun run typecheck
 
 ## Routes
 
-| Path | Screen |
-| --- | --- |
-| `/` | Invitation |
+| Path            | Screen                    |
+| --------------- | ------------------------- |
+| `/`             | Invitation                |
 | `/q/[position]` | Question and Rhea's reply |
-| `/result` | Verdict and details |
+| `/result`       | Verdict and details       |
 
 ## License
 
