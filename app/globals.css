@@ -731,6 +731,7 @@ button:not(:disabled),
   font-size: clamp(1.05rem, 1.25vw, 1.2rem);
   font-style: italic;
   line-height: 1.65;
+  overflow-wrap: anywhere;
 }
 
 .reflection-separator {
@@ -1148,7 +1149,8 @@ button:not(:disabled),
   .ambient-light,
   .phase-content,
   .portrait-image,
-  .result-details {
+  .result-details,
+  .listening-indicator > span {
     animation: none;
   }
 
