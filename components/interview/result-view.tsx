@@ -47,7 +47,7 @@ export function ResultView({ result }: { result: ExperienceResult }) {
           <div className="result-actions">
             <Button
               type="button"
-              size="lg"
+              size="cta"
               variant="outline"
               aria-expanded={detailsOpen}
               aria-controls="result-details"

@@ -46,6 +46,7 @@
   --radius-2xl: calc(var(--radius) * 1.5);
   --radius-3xl: calc(var(--radius) * 1.75);
   --radius-4xl: calc(var(--radius) * 2);
+  --shadow-glow: 0 0 30px oklch(0.72 0.16 209 / 16%);
 }
 
 :root {
@@ -593,19 +594,6 @@
   text-align: right;
 }
 
-.primary-action {
-  min-height: 2.75rem;
-  padding-inline: 1rem;
-  letter-spacing: 0.04em;
-  box-shadow: 0 0 30px oklch(0.72 0.16 209 / 16%);
-}
-
-/* Buttons disabled via aria-disabled (focusableWhenDisabled) keep the native disabled look. */
-.primary-action[aria-disabled="true"] {
-  opacity: 0.5;
-  pointer-events: none;
-}
-
 .question-content {
   gap: clamp(1.15rem, 2.4vh, 1.8rem);
 }
@@ -824,12 +812,6 @@
   font-weight: 450;
   letter-spacing: 0.05em;
   text-shadow: 0 0 28px oklch(0.72 0.16 209 / 20%);
-}
-
-.details-toggle {
-  min-height: 2.75rem;
-  padding-inline: 1rem;
-  letter-spacing: 0.04em;
 }
 
 .result-summary {

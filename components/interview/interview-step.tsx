@@ -178,10 +178,10 @@ export function InterviewStep({
 
               <Button
                 type="submit"
-                size="lg"
+                size="cta"
                 disabled={!answerIsReady}
                 focusableWhenDisabled
-                className="primary-action response-submit"
+                className="primary-action response-submit shadow-glow"
               >
                 LET HER LISTEN
                 <Send data-icon="inline-end" />
@@ -233,10 +233,10 @@ export function InterviewStep({
             )}
 
             <Button
-              size="lg"
+              size="cta"
               onClick={() => router.push(stepHref(step))}
               disabled={reflectionView === null}
-              className="primary-action reflection-action"
+              className="primary-action reflection-action shadow-glow"
             >
               {step.kind === "result" ? "SEE WHAT SHE SAW" : "STAY WITH HER"}
               <ArrowRight data-icon="inline-end" />

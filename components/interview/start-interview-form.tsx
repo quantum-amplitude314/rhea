@@ -30,10 +30,10 @@ export function StartInterviewForm({ children }: { children: ReactNode }) {
       <TurnstileWidget key={challengeKey} onTokenChange={setToken} />
       <Button
         type="submit"
-        size="lg"
+        size="cta"
         disabled={isVerifying || isPending}
         focusableWhenDisabled
-        className="primary-action"
+        className="primary-action shadow-glow"
       >
         {isVerifying ? (
           <>
