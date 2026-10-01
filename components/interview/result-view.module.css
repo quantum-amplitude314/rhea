@@ -1,0 +1,128 @@
+@keyframes arrive {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.verdict {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.verdict strong {
+  color: var(--electric-cyan);
+  font-size: clamp(1.65rem, 2.5vw, 2.6rem);
+  font-weight: 450;
+  letter-spacing: 0.05em;
+  text-shadow: 0 0 28px oklch(0.72 0.16 209 / 20%);
+}
+
+.summary {
+  max-width: 46rem;
+  margin: 0;
+  color: color-mix(in oklab, var(--foreground) 76%, var(--muted-foreground));
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+
+.dimensions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.6rem;
+  margin: 0;
+}
+
+.dimensions > div {
+  display: grid;
+  min-width: 0;
+  grid-template-columns: 1fr;
+  gap: 0.45rem;
+  padding: 0.85rem 0;
+  border-top: 1px solid var(--border);
+}
+
+.dimensions dd {
+  margin: 0;
+  color: var(--foreground);
+  font-size: var(--text-label);
+  font-weight: 500;
+  line-height: 1.25;
+}
+
+.signals {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding-top: 0.25rem;
+  animation: arrive 350ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.detailsHeading {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.detailsHeading svg {
+  width: 1rem;
+  height: 1rem;
+  color: var(--electric-magenta);
+}
+
+.signals dl {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.8rem;
+  margin: 0;
+}
+
+.signals dl > div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.signals dd {
+  margin: 0;
+  color: color-mix(in oklab, var(--electric-magenta) 60%, white);
+  font-family: var(--font-mono), monospace;
+  font-size: var(--text-label);
+}
+
+@media (max-width: 560px) {
+  .detailsToggle {
+    width: 100%;
+  }
+
+  .dimensions {
+    grid-template-columns: 1fr;
+  }
+
+  .detailsHeading {
+    grid-template-columns: auto 1fr;
+  }
+
+  .signals dl {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .details {
+    animation: none;
+  }
+}

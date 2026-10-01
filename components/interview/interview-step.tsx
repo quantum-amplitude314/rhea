@@ -143,7 +143,7 @@ export function InterviewStep({
       <div ref={panelRef} className="interview-step">
         {phase === "question" ? (
           <div className="question-content phase-content">
-            <span className="speaker">RHEA ASKS</span>
+            <span className="meta-label">RHEA ASKS</span>
 
             {children}
 
@@ -191,7 +191,7 @@ export function InterviewStep({
         ) : (
           <div className="reflection-content phase-content" aria-live="polite">
             <div className="response-echo">
-              <span>YOU SAID</span>
+              <span className="meta-label">YOU SAID</span>
               <blockquote>“{pendingAnswer}”</blockquote>
             </div>
 
@@ -199,7 +199,7 @@ export function InterviewStep({
 
             {reflectionView === null ? (
               <div className="rhea-reflection rhea-listening">
-                <span>RHEA / LISTENING</span>
+                <span className="meta-label">RHEA / LISTENING</span>
                 <p className="listening-indicator" aria-hidden="true">
                   <span />
                   <span />
@@ -209,7 +209,7 @@ export function InterviewStep({
               </div>
             ) : (
               <div className="rhea-reflection">
-                <span>RHEA / AFTER A PAUSE</span>
+                <span className="meta-label">RHEA / AFTER A PAUSE</span>
                 <h1 tabIndex={-1} aria-label={reflectionView.reflection}>
                   <span className="typing-reserve" aria-hidden="true">
                     {reflectionView.reflection}

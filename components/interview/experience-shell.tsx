@@ -1,6 +1,8 @@
 import type { ReactNode } from "react";
 import { type Phase, Portrait } from "@/components/interview/portrait";
 import { Progress, ProgressLabel } from "@/components/ui/progress";
+import { cn } from "@/lib/utils";
+import styles from "./experience-shell.module.css";
 
 export function ExperienceShell({
   phase,
@@ -12,16 +14,22 @@ export function ExperienceShell({
   children: ReactNode;
 }) {
   return (
-    <main className="electric-shell">
-      <div className="ambient-light ambient-light-cyan" aria-hidden="true" />
-      <div className="ambient-light ambient-light-magenta" aria-hidden="true" />
+    <main className={styles.shell}>
+      <div
+        className={cn(styles.ambientLight, styles.ambientCyan)}
+        aria-hidden="true"
+      />
+      <div
+        className={cn(styles.ambientLight, styles.ambientMagenta)}
+        aria-hidden="true"
+      />
 
-      <section id="experience" className="experience-grid">
+      <section id="experience" className={styles.grid}>
         <Portrait phase={phase} />
 
-        <div className="conversation-panel" data-phase={phase}>
+        <div className={styles.panel} data-phase={phase}>
           {progress === null ? null : (
-            <div className="sequence-rail">
+            <div className={styles.sequenceRail}>
               <Progress
                 value={progress}
                 getAriaValueText={() =>
@@ -29,7 +37,7 @@ export function ExperienceShell({
                     ? "Interview complete"
                     : "Interview in progress"
                 }
-                className="sequence-progress"
+                className={styles.sequenceProgress}
               >
                 <ProgressLabel className="sr-only">
                   Interview progress

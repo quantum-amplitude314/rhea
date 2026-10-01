@@ -1,5 +1,7 @@
 import Image from "next/image";
 import { QaCredit } from "@/components/qa-credit";
+import { cn } from "@/lib/utils";
+import styles from "./portrait.module.css";
 
 export type Phase = "invitation" | "question" | "reflection" | "result";
 
@@ -13,26 +15,26 @@ const lineByPhase: Record<Phase, string> = {
 
 export function Portrait({ phase }: { phase: Phase }) {
   return (
-    <aside className="portrait-stage" data-phase={phase}>
+    <aside className={styles.stage} data-phase={phase}>
       <Image
         src="/rhea-portrait.avif"
         alt="A luminous synthetic woman looking directly at the viewer"
         fill
         priority
         sizes="(max-width: 860px) 100vw, 56vw"
-        className="portrait-image"
+        className={styles.image}
       />
-      <div className="portrait-color" aria-hidden="true" />
-      <div className="portrait-grain" aria-hidden="true" />
-      <div className="portrait-orbit portrait-orbit-one" aria-hidden="true" />
-      <div className="portrait-orbit portrait-orbit-two" aria-hidden="true" />
+      <div className={styles.color} aria-hidden="true" />
+      <div className={styles.grain} aria-hidden="true" />
+      <div className={cn(styles.orbit, styles.orbitOne)} aria-hidden="true" />
+      <div className={cn(styles.orbit, styles.orbitTwo)} aria-hidden="true" />
 
-      <div className="portrait-caption">
-        <blockquote className="portrait-quote">
+      <div className={styles.caption}>
+        <blockquote className={styles.quote}>
           <span aria-hidden="true">“</span>
           {lineByPhase[phase]}
         </blockquote>
-        <div className="portrait-credits">
+        <div className={styles.credits}>
           <QaCredit />
         </div>
       </div>

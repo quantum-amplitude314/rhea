@@ -1,0 +1,219 @@
+/* Question, answer form, reflection, and listening indicator. */
+
+@keyframes listening-pulse {
+  0%,
+  100% {
+    opacity: 0.25;
+    transform: scale(0.85);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+}
+
+.interview-step {
+  display: contents;
+}
+
+.question-content {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.15rem, 2.4vh, 1.8rem);
+}
+
+.question-prompt {
+  max-width: 20ch;
+  margin: 0;
+  font-family: var(--font-heading), serif;
+  font-size: clamp(1.9rem, 2.8vw, 3.2rem);
+  font-weight: 400;
+  letter-spacing: -0.015em;
+  line-height: 1.15;
+  text-wrap: balance;
+}
+
+.question-whisper {
+  margin: -0.35rem 0 0;
+  color: color-mix(in oklab, var(--electric-magenta) 65%, var(--foreground));
+  font-size: var(--text-supporting);
+  font-style: italic;
+}
+
+.response-form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.response-form [data-slot="field-label"] {
+  color: var(--muted-foreground);
+  font-family: var(--font-mono), monospace;
+  font-size: var(--text-label);
+  letter-spacing: 0.1em;
+}
+
+.answer-input {
+  min-height: 8.5rem;
+  resize: vertical;
+  border-color: color-mix(in oklab, var(--border) 90%, transparent);
+  background: oklch(0.13 0.043 291 / 58%);
+  color: var(--foreground);
+  font-size: 1rem;
+  line-height: 1.65;
+  box-shadow: inset 0 1px 0 oklch(0.95 0.04 295 / 5%);
+  backdrop-filter: blur(16px);
+}
+
+.answer-input::placeholder {
+  color: color-mix(in oklab, var(--muted-foreground) 88%, transparent);
+}
+
+.answer-input:focus-visible {
+  border-color: color-mix(in oklab, var(--electric-cyan) 58%, transparent);
+  box-shadow:
+    0 0 0 3px oklch(0.72 0.16 209 / 9%),
+    0 0 30px oklch(0.72 0.16 209 / 8%);
+}
+
+.response-hint {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  color: var(--muted-foreground);
+  font-family: var(--font-mono), monospace;
+  font-size: var(--text-meta);
+  letter-spacing: 0.06em;
+  font-variant-numeric: tabular-nums;
+}
+
+.response-submit {
+  align-self: flex-end;
+}
+
+.reflection-content {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.5rem, 3.4vh, 2.8rem);
+}
+
+.response-echo,
+.rhea-reflection {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.response-echo blockquote {
+  max-width: 40rem;
+  margin: 0;
+  color: color-mix(in oklab, var(--foreground) 72%, var(--muted-foreground));
+  font-size: clamp(1.05rem, 1.25vw, 1.2rem);
+  font-style: italic;
+  line-height: 1.65;
+  overflow-wrap: anywhere;
+}
+
+.reflection-separator {
+  background: linear-gradient(
+    to right,
+    var(--electric-magenta),
+    var(--electric-cyan),
+    transparent
+  );
+  opacity: 0.42;
+}
+
+.rhea-reflection h1 {
+  display: grid;
+  max-width: 18ch;
+  margin: 0;
+  font-family: var(--font-heading), serif;
+  font-size: clamp(1.75rem, 3.15vw, 3.5rem);
+  font-weight: 400;
+  letter-spacing: -0.015em;
+  line-height: 1.15;
+  text-wrap: wrap;
+}
+
+.rhea-reflection h1 > .typing-reserve {
+  grid-area: 1 / 1;
+  visibility: hidden;
+}
+
+.rhea-reflection h1 > .typing-visible {
+  grid-area: 1 / 1;
+  letter-spacing: inherit;
+}
+
+.reflection-echo {
+  max-width: 40rem;
+  margin: 0;
+  color: color-mix(in oklab, var(--electric-magenta) 65%, var(--foreground));
+  font-size: var(--text-supporting);
+  font-style: italic;
+  line-height: 1.6;
+}
+
+.listening-indicator {
+  display: flex;
+  gap: 0.55rem;
+  margin: 0.4rem 0 0;
+  min-height: clamp(1.75rem, 3.15vw, 3.5rem);
+  align-items: center;
+}
+
+.listening-indicator > span {
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 50%;
+  background: var(--electric-cyan);
+  opacity: 0.35;
+  animation: listening-pulse 1.4s ease-in-out infinite;
+}
+
+.listening-indicator > span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.listening-indicator > span:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+.reflection-action {
+  align-self: flex-end;
+}
+
+@media (max-width: 860px) {
+  .question-prompt {
+    max-width: 22ch;
+    font-size: clamp(1.9rem, 6vw, 3rem);
+  }
+
+  .answer-input {
+    field-sizing: fixed;
+    height: 6.25rem;
+    min-height: 6.25rem;
+  }
+
+  .rhea-reflection h1 {
+    max-width: 23ch;
+  }
+}
+
+@media (max-width: 560px) {
+  .response-shortcut {
+    display: none;
+  }
+
+  .response-hint {
+    justify-content: flex-end;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .listening-indicator > span {
+    animation: none;
+  }
+}

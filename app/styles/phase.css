@@ -1,0 +1,118 @@
+@keyframes content-arrive {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.phase-content {
+  position: relative;
+  z-index: 2;
+  animation: content-arrive 550ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.headline-layout {
+  display: grid;
+  flex: 1;
+  grid-template-rows: 1fr auto 1fr;
+  row-gap: clamp(1.5rem, 4vh, 3rem);
+}
+
+.headline-body {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.35rem, 2.8vh, 2.2rem);
+}
+
+.headline {
+  font-family: var(--font-heading), serif;
+  font-size: clamp(3.25rem, 5.25vw, 6.75rem);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  text-wrap: balance;
+}
+
+.headline[data-variant="result"] {
+  font-size: clamp(2.5rem, 3.4vw, 4.4rem);
+}
+
+.headline-primary,
+.headline-secondary {
+  display: block;
+  width: fit-content;
+  line-height: 1;
+}
+
+.headline-primary {
+  color: var(--foreground);
+}
+
+.headline-secondary {
+  color: var(--electric-magenta);
+  text-shadow: 0 0 34px oklch(0.65 0.23 330 / 18%);
+}
+
+.headline[data-variant="result"] .headline-secondary {
+  color: transparent;
+  -webkit-text-stroke: 1px
+    color-mix(in oklab, var(--electric-magenta) 78%, white);
+}
+
+.rhea-quote {
+  max-width: 40rem;
+  margin: 0;
+  padding-left: 1rem;
+  border-left: 1px solid var(--electric-magenta);
+  color: var(--foreground);
+  font-size: clamp(0.95rem, 1.1vw, 1.08rem);
+  font-style: italic;
+  line-height: 1.65;
+}
+
+@media (max-width: 1100px) {
+  .headline[data-variant="invitation"] {
+    font-size: clamp(3.1rem, 6.2vw, 5.4rem);
+  }
+}
+
+@media (max-width: 860px) {
+  .headline-layout {
+    grid-template-rows: none;
+    align-content: start;
+  }
+
+  .phase-content {
+    width: min(100%, 42rem);
+    margin-inline: auto;
+  }
+
+  .headline[data-variant="invitation"] {
+    font-size: clamp(3rem, 11vw, 5.3rem);
+  }
+
+  .headline[data-variant="result"] {
+    font-size: clamp(2.6rem, 8vw, 4rem);
+  }
+}
+
+@media (max-width: 560px) {
+  .headline[data-variant="result"] {
+    font-size: clamp(2.6rem, 10vw, 3.4rem);
+  }
+
+  .primary-action {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .phase-content {
+    animation: none;
+  }
+}

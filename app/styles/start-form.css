@@ -1,0 +1,45 @@
+/* Start form with Turnstile, and the result-page action row that hosts it. */
+
+.start-interview,
+.result-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+.result-actions .start-interview {
+  display: contents;
+}
+
+.turnstile-widget {
+  position: absolute;
+}
+
+.turnstile-widget[data-shown] {
+  position: static;
+}
+
+.result-actions .turnstile-widget[data-shown] {
+  display: flex;
+  order: -1;
+  flex-basis: 100%;
+  justify-content: flex-end;
+}
+
+.verification-error {
+  flex-basis: 100%;
+  margin: 0;
+  color: var(--destructive);
+  font-size: var(--text-label);
+  text-align: right;
+}
+
+@media (max-width: 560px) {
+  .start-interview,
+  .result-actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+}
