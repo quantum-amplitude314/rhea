@@ -90,38 +90,40 @@
   --text-supporting: 0.95rem;
 }
 
-* {
-  box-sizing: border-box;
-  border-color: var(--border);
-  outline-color: color-mix(in oklab, var(--ring) 50%, transparent);
-}
+@layer base {
+  * {
+    box-sizing: border-box;
+    border-color: var(--border);
+    outline-color: color-mix(in oklab, var(--ring) 50%, transparent);
+  }
 
-html {
-  min-height: 100%;
-  background: var(--background);
-  color-scheme: dark;
-  scroll-behavior: smooth;
-}
+  html {
+    min-height: 100%;
+    background: var(--background);
+    color-scheme: dark;
+    scroll-behavior: smooth;
+  }
 
-body {
-  min-height: 100%;
-  margin: 0;
-  overflow-x: hidden;
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-sans), sans-serif;
-}
+  body {
+    min-height: 100%;
+    margin: 0;
+    overflow-x: hidden;
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans), sans-serif;
+  }
 
-button:not(:disabled),
-[role="button"]:not(:disabled) {
-  cursor: pointer;
-  touch-action: manipulation;
-  -webkit-tap-highlight-color: transparent;
-}
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
 
-::selection {
-  background: color-mix(in oklab, var(--electric-magenta) 65%, transparent);
-  color: white;
+  ::selection {
+    background: color-mix(in oklab, var(--electric-magenta) 65%, transparent);
+    color: white;
+  }
 }
 
 .portrait-credits {
@@ -131,31 +133,6 @@ button:not(:disabled),
   font-family: var(--font-mono), monospace;
   font-size: var(--text-label);
   white-space: nowrap;
-}
-
-.qa-credit {
-  display: inline-block;
-  min-height: 2.75rem;
-  padding-block: 0.75rem;
-  border-radius: var(--radius-sm);
-}
-
-.qa-credit:hover,
-.qa-credit:focus-visible {
-  color: var(--foreground);
-}
-
-.qa-credit:focus-visible {
-  outline: 2px solid var(--ring);
-  outline-offset: 2px;
-}
-
-.qa-mark {
-  display: inline;
-  width: auto;
-  height: 0.853em;
-  margin-left: 0.5rem;
-  vertical-align: -0.134em;
 }
 
 @keyframes portrait-breathe {
