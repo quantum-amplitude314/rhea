@@ -29,6 +29,11 @@ export const questionViewSchema = z.object({
   total: z.number().int().min(1),
   prompt: z.string().min(1),
   whisper: z.string(),
+  answer: z.string().nullable(),
+});
+
+export const answerReceiptSchema = z.object({
+  position: z.number().int().min(1),
 });
 
 export const reflectionViewSchema = z.object({
@@ -53,5 +58,6 @@ export type Submission = z.infer<typeof submissionSchema>;
 export type StartInput = z.infer<typeof startInputSchema>;
 export type InterviewSession = z.infer<typeof sessionSchema>;
 export type QuestionView = z.infer<typeof questionViewSchema>;
+export type AnswerReceipt = z.infer<typeof answerReceiptSchema>;
 export type ReflectionView = z.infer<typeof reflectionViewSchema>;
 export type ExperienceResult = z.infer<typeof experienceResultSchema>;

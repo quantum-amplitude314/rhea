@@ -1,22 +1,18 @@
-import { ORPCError } from "@orpc/client";
-import { redirect } from "next/navigation";
 import { ResultView } from "@/interview/result/result-view";
-import { apiClient } from "@/interview/server/api";
-import { readSessionId } from "@/interview/server/session-cookie";
+import { loadResult } from "@/interview/server/load";
+import { InterviewProgress } from "@/interview/shell/interview-progress";
 
 export const dynamic = "force-dynamic";
 
-export default async function Page() {
-  const sessionId = await readSessionId();
-  if (!sessionId) redirect("/");
+export default async function ResultPage({
+  searchParams,
+}: PageProps<"/result">) {
+  const [result, { details }] = await Promise.all([loadResult(), searchParams]);
 
-  const result = await apiClient.interview.result().catch((error: unknown) => {
-    if (error instanceof ORPCError) {
-      const { code } = error;
-      if (code === "UNAUTHORIZED" || code === "NOT_FOUND") redirect("/");
-    }
-    throw error;
-  });
-
-  return <ResultView result={result} />;
+  return (
+    <>
+      <InterviewProgress value={100} />
+      <ResultView result={result} detailsOpen={details === "open"} />
+    </>
+  );
 }

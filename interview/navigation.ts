@@ -1,20 +1,17 @@
-export type Step = { kind: "question"; position: number } | { kind: "result" };
-
 export const FIRST_POSITION = 1;
+export const RESULT_HREF = "/result";
 
-export const nextStep = ({
+export const questionHref = (position: number) => `/q/${position}`;
+
+export const reflectionHref = (position: number) => `/q/${position}/reflection`;
+
+export const nextHref = ({
   position,
   total,
 }: {
   position: number;
   total: number;
-}): Step =>
-  position >= total
-    ? { kind: "result" }
-    : { kind: "question", position: position + 1 };
-
-export const stepHref = (step: Step) =>
-  step.kind === "result" ? "/result" : `/q/${step.position}`;
+}) => (position >= total ? RESULT_HREF : questionHref(position + 1));
 
 export const parsePosition = (raw: string) => {
   const position = Number(raw);

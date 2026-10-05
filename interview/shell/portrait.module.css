@@ -25,15 +25,15 @@
   transition: filter 900ms ease;
 }
 
-.stage[data-phase="question"] .image {
+.stage:has([data-phase="question"]) .image {
   filter: saturate(0.76) contrast(1.06) brightness(0.68) hue-rotate(-7deg);
 }
 
-.stage[data-phase="reflection"] .image {
+.stage:has([data-phase="reflection"]) .image {
   filter: saturate(0.92) contrast(1.02) brightness(0.78) hue-rotate(7deg);
 }
 
-.stage[data-phase="result"] .image {
+.stage:has([data-phase="result"]) .image {
   filter: saturate(0.68) contrast(1.08) brightness(0.66) hue-rotate(18deg);
 }
 
@@ -68,7 +68,7 @@
   transition: opacity 900ms ease;
 }
 
-.stage[data-phase="result"] .color::after {
+.stage:has([data-phase="result"]) .color::after {
   opacity: 1;
 }
 

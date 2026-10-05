@@ -92,7 +92,7 @@
   backdrop-filter: blur(36px);
 }
 
-.panel[data-phase="invitation"] {
+.panel:has(> [data-screen="invitation"]) {
   padding: 0;
 }
 
@@ -110,34 +110,6 @@
     0 0 0 9rem oklch(0.69 0.2 323 / 2%);
 }
 
-.sequenceRail {
-  position: absolute;
-  top: calc(2.75rem + env(safe-area-inset-top));
-  right: clamp(2rem, 5vw, 5.75rem);
-  left: clamp(2rem, 5vw, 5.75rem);
-}
-
-.sequenceProgress {
-  display: block;
-}
-
-.sequenceProgress [data-slot="progress-track"] {
-  height: 2px;
-  border-radius: 0;
-  background: color-mix(in oklab, var(--muted-foreground) 22%, transparent);
-}
-
-.sequenceProgress [data-slot="progress-indicator"] {
-  background: linear-gradient(
-    to right,
-    var(--electric-magenta),
-    var(--electric-cyan)
-  );
-  box-shadow: 0 0 14px oklch(0.72 0.16 209 / 30%);
-  transition-duration: 500ms;
-  transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
-}
-
 @media (max-width: 1100px) {
   .grid {
     grid-template-columns: minmax(0, 0.92fr) minmax(28rem, 1.08fr);
@@ -146,11 +118,6 @@
   .panel {
     padding-right: max(2.25rem, env(safe-area-inset-right));
     padding-left: max(2.25rem, env(safe-area-inset-left));
-  }
-
-  .sequenceRail {
-    right: 2.25rem;
-    left: 2.25rem;
   }
 }
 
@@ -175,16 +142,8 @@
     border-left: 0;
   }
 
-  .panel[data-phase="invitation"] {
+  .panel:has(> [data-screen="invitation"]) {
     flex-grow: 1;
-  }
-
-  .sequenceRail {
-    top: 1rem;
-    right: max(1.25rem, env(safe-area-inset-right));
-    left: max(1.25rem, env(safe-area-inset-left));
-    max-width: 42rem;
-    margin-inline: auto;
   }
 }
 
@@ -199,9 +158,5 @@
 @media (prefers-reduced-motion: reduce) {
   .ambientLight {
     animation: none;
-  }
-
-  .sequenceProgress [data-slot="progress-indicator"] {
-    transition: none;
   }
 }

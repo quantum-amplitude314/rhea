@@ -2,8 +2,12 @@
 
 import { ORPCError } from "@orpc/client";
 import type { Submission } from "@rhea/contracts";
-import { redirect } from "next/navigation";
-import { FIRST_POSITION, stepHref } from "@/interview/navigation";
+import { RedirectType, redirect } from "next/navigation";
+import {
+  FIRST_POSITION,
+  questionHref,
+  reflectionHref,
+} from "@/interview/navigation";
 import { apiClient } from "@/interview/server/api";
 import { writeSessionId } from "@/interview/server/session-cookie";
 
@@ -33,11 +37,17 @@ export const startInterview = async (
   const { sessionId } = session;
   await writeSessionId(sessionId);
 
-  redirect(stepHref({ kind: "question", position: FIRST_POSITION }));
+  redirect(questionHref(FIRST_POSITION));
 };
 
 export const submitAnswer = async (submission: Submission) => {
-  const reflection = await apiClient.interview.submit(submission);
+  const { position } = submission;
+  await apiClient.interview.submit(submission).catch((error: unknown) => {
+    if (!(error instanceof ORPCError)) throw error;
+    const { code } = error;
+    if (code === "UNAUTHORIZED") redirect("/");
+    if (code !== "CONFLICT") throw error;
+  });
 
-  return reflection;
+  redirect(reflectionHref(position), RedirectType.replace);
 };

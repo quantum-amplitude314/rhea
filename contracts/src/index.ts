@@ -1,6 +1,7 @@
 import { oc } from "@orpc/contract";
 import { z } from "zod";
 import {
+  answerReceiptSchema,
   experienceResultSchema,
   questionViewSchema,
   reflectionViewSchema,
@@ -14,6 +15,10 @@ const authenticated = oc.errors({
   NOT_FOUND: { message: "Interview resource not found" },
 });
 
+const positionInputSchema = z.object({
+  position: z.coerce.number<number>().int().min(1),
+});
+
 export const contract = {
   interview: {
     start: oc
@@ -23,11 +28,16 @@ export const contract = {
       .output(sessionSchema),
     question: authenticated
       .route({ method: "GET", path: "/interview/questions/{position}" })
-      .input(z.object({ position: z.coerce.number<number>().int().min(1) }))
+      .input(positionInputSchema)
       .output(questionViewSchema),
     submit: authenticated
+      .errors({ CONFLICT: { message: "Question already answered" } })
       .route({ method: "POST", path: "/interview/answers" })
       .input(submissionSchema)
+      .output(answerReceiptSchema),
+    reflection: authenticated
+      .route({ method: "GET", path: "/interview/reflections/{position}" })
+      .input(positionInputSchema)
       .output(reflectionViewSchema),
     result: authenticated
       .route({ method: "GET", path: "/interview/result" })
@@ -39,6 +49,8 @@ export type Contract = typeof contract;
 
 export {
   ANSWER_MAX_LENGTH,
+  type AnswerReceipt,
+  answerReceiptSchema,
   type ExperienceResult,
   experienceResultSchema,
   type InteractionSignal,

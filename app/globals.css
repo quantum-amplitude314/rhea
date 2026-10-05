@@ -4,7 +4,8 @@
 
 @import "../interview/shell/phase.css";
 @import "../interview/start/start-form.css";
-@import "../interview/step/interview-step.css";
+@import "../interview/question/question.css";
+@import "../interview/reflection/reflection.css";
 
 @custom-variant dark (&:is(.dark *));
 

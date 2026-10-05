@@ -1,5 +1,4 @@
 import { ArrowRight } from "lucide-react";
-import { ExperienceShell } from "@/interview/shell/experience-shell";
 import { Headline } from "@/interview/shell/headline";
 import { StartInterviewForm } from "@/interview/start/start-interview-form";
 import { cn } from "@/lib/utils";
@@ -7,8 +6,11 @@ import styles from "./invitation.module.css";
 
 export function Invitation() {
   return (
-    <ExperienceShell phase="invitation" progress={null}>
-      <div className={cn("headline-layout phase-content", styles.content)}>
+    <>
+      <div
+        data-screen="invitation"
+        className={cn("headline-layout phase-content", styles.content)}
+      >
         <Headline
           variant="invitation"
           primary="Do you dream"
@@ -38,6 +40,6 @@ export function Invitation() {
         small Mistral AI model and scored by the app's own algorithm and data
         model.
       </p>
-    </ExperienceShell>
+    </>
   );
 }

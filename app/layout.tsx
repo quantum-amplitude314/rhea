@@ -4,7 +4,7 @@ import {
   Geist_Mono,
   Newsreader,
 } from "next/font/google";
-import type { ReactNode } from "react";
+import { ExperienceFrame } from "@/interview/shell/experience-frame";
 import "./globals.css";
 
 const headingFont = Newsreader({
@@ -53,12 +53,14 @@ export const viewport: Viewport = {
   themeColor: "#10091e",
 };
 
-export default function RootLayout({ children }: { children: ReactNode }) {
+export default function RootLayout({ children, portrait }: LayoutProps<"/">) {
   const fontVariables = `${headingFont.variable} ${bodyFont.variable} ${monoFont.variable}`;
 
   return (
     <html lang="en" className={fontVariables} data-scroll-behavior="smooth">
-      <body>{children}</body>
+      <body>
+        <ExperienceFrame portraitLine={portrait}>{children}</ExperienceFrame>
+      </body>
     </html>
   );
 }

@@ -37,7 +37,7 @@ Browser ──► Next.js on Cloudflare Workers ──► rhea-api Worker
 ## Prerequisites
 
 - Bun 1.4.2
-- Biome 2.5.14, installed globally
+- Biome 2.5.15, installed globally
 
 ## Setup
 
@@ -68,11 +68,15 @@ bun run typecheck
 
 ## Routes
 
-| Path            | Screen                    |
-| --------------- | ------------------------- |
-| `/`             | Invitation                |
-| `/q/[position]` | Question and Rhea's reply |
-| `/result`       | Verdict and details       |
+| Path                       | Screen                                    |
+| -------------------------- | ----------------------------------------- |
+| `/`                        | Invitation                                |
+| `/q/[position]`            | Question                                  |
+| `/q/[position]/reflection` | Your answer and Rhea's reply, streamed in |
+| `/result`                  | Verdict; `?details=open` shows details    |
+
+`proxy.ts` sends `/q/*` and `/result` back to `/` without a session cookie. The
+portrait's per-route line comes from the `@portrait` parallel route.
 
 ## License
 

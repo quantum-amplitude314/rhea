@@ -1,42 +1,28 @@
-import { ORPCError } from "@orpc/client";
-import { notFound, redirect } from "next/navigation";
-import { parsePosition } from "@/interview/navigation";
-import { apiClient } from "@/interview/server/api";
-import { readSessionId } from "@/interview/server/session-cookie";
-import { InterviewStep } from "@/interview/step/interview-step";
+import { redirect } from "next/navigation";
+import { reflectionHref } from "@/interview/navigation";
+import { AnswerForm } from "@/interview/question/answer-form";
+import { FocusedHeading } from "@/interview/question/focused-heading";
+import { loadQuestion, readPosition } from "@/interview/server/load";
+import { InterviewProgress } from "@/interview/shell/interview-progress";
 
 export const dynamic = "force-dynamic";
 
-export default async function Page({
+export default async function QuestionPage({
   params,
-}: {
-  params: Promise<{ position: string }>;
-}) {
-  const sessionId = await readSessionId();
-  if (!sessionId) redirect("/");
-
-  const { position: rawPosition } = await params;
-  const position = parsePosition(rawPosition);
-  if (position === null) notFound();
-
-  const { total, prompt, whisper } = await apiClient.interview
-    .question({ position })
-    .catch((error: unknown) => {
-      if (error instanceof ORPCError) {
-        const { code } = error;
-        if (code === "UNAUTHORIZED") redirect("/");
-        if (code === "NOT_FOUND") notFound();
-      }
-      throw error;
-    });
+}: PageProps<"/q/[position]">) {
+  const position = await readPosition(params);
+  const { total, prompt, whisper, answer } = await loadQuestion(position);
+  if (answer !== null) redirect(reflectionHref(position));
 
   return (
-    <InterviewStep
-      key={position}
-      position={position}
-      total={total}
-      prompt={prompt}
-      whisper={whisper}
-    />
+    <>
+      <InterviewProgress value={(position / total) * 100} />
+      <div className="question-content phase-content">
+        <span className="meta-label">RHEA ASKS</span>
+        <FocusedHeading className="question-prompt">{prompt}</FocusedHeading>
+        <p className="question-whisper">{whisper}</p>
+        <AnswerForm position={position} />
+      </div>
+    </>
   );
 }
