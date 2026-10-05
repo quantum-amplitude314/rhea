@@ -3,7 +3,6 @@
 import Script from "next/script";
 import { useEffect, useState } from "react";
 
-/** Explicit-render API of https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit */
 type TurnstileApi = {
   render: (container: HTMLElement, options: TurnstileRenderOptions) => string;
   remove: (widgetId: string) => void;
@@ -38,11 +37,6 @@ const readSiteKey = () => {
 
 const siteKey = readSiteKey();
 
-/**
- * Shown only when Turnstile needs an interaction or fails; until then it stays out of the layout.
- * It renders inside the surrounding form, where Turnstile adds the `cf-turnstile-response` input.
- * Remount it with a new `key` for a fresh token.
- */
 export function TurnstileWidget({
   onTokenChange,
 }: {

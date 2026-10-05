@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
-import { type Phase, Portrait } from "@/components/interview/portrait";
 import { Progress, ProgressLabel } from "@/components/ui/progress";
+import { type Phase, Portrait } from "@/interview/shell/portrait";
 import { cn } from "@/lib/utils";
 import styles from "./experience-shell.module.css";
 

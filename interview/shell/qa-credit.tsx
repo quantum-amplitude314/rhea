@@ -1,6 +1,6 @@
 const PORTFOLIO_URL = "https://quantum-amplitude.tech";
 
-// Shared portfolio mark; font-unit geometry keeps it aligned with the text baseline.
+// Font-unit geometry keeps the mark on the text baseline.
 function QaMark() {
   return (
     <svg

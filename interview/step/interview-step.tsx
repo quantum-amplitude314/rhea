@@ -11,14 +11,10 @@ import {
   type ChangeEvent,
   type FormEvent,
   type KeyboardEvent,
-  type ReactNode,
   useEffect,
   useRef,
   useState,
 } from "react";
-import { submitAnswer } from "@/app/q/[position]/actions";
-import { ExperienceShell } from "@/components/interview/experience-shell";
-import type { Phase } from "@/components/interview/portrait";
 import { Button } from "@/components/ui/button";
 import {
   Field,
@@ -29,8 +25,11 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { Textarea } from "@/components/ui/textarea";
 import { TypingAnimation } from "@/components/ui/typing-animation";
-import { unreachableReflection } from "@/lib/interview/fallback";
-import { nextStep, stepHref } from "@/lib/interview/navigation";
+import { nextStep, stepHref } from "@/interview/navigation";
+import { submitAnswer } from "@/interview/server/actions";
+import { ExperienceShell } from "@/interview/shell/experience-shell";
+import type { Phase } from "@/interview/shell/portrait";
+import { unreachableReflection } from "@/interview/step/unreachable-reflection";
 
 type InteractionDraft = {
   shownAt: number;
@@ -46,14 +45,26 @@ const emptyInteractionDraft = (shownAt: number): InteractionDraft => ({
   revisions: 0,
 });
 
+const isSubmitShortcut = ({
+  metaKey,
+  ctrlKey,
+  key,
+}: {
+  metaKey: boolean;
+  ctrlKey: boolean;
+  key: string;
+}) => (metaKey || ctrlKey) && key === "Enter";
+
 export function InterviewStep({
   position,
   total,
-  children,
+  prompt,
+  whisper,
 }: {
   position: number;
   total: number;
-  children: ReactNode;
+  prompt: string;
+  whisper: string;
 }) {
   const router = useRouter();
   const [phase, setPhase] =
@@ -64,11 +75,13 @@ export function InterviewStep({
     null,
   );
   const interaction = useRef<InteractionDraft>(emptyInteractionDraft(0));
-  const panelRef = useRef<HTMLDivElement>(null);
+  const promptHeadingRef = useRef<HTMLHeadingElement>(null);
   const step = nextStep({ position, total });
+  const nextStepHref = stepHref(step);
   const progress = (position / total) * 100;
   const answerIsReady = answer.trim().length > 0;
   const isEvaluating = phase === "reflection" && reflectionView === null;
+  const canContinue = reflectionView !== null;
 
   useEffect(() => {
     interaction.current = emptyInteractionDraft(performance.now());
@@ -76,13 +89,25 @@ export function InterviewStep({
 
   useEffect(() => {
     const frame = requestAnimationFrame(() => {
-      panelRef.current
-        ?.querySelector<HTMLElement>("[data-phase-heading]")
-        ?.focus({ preventScroll: true });
+      promptHeadingRef.current?.focus({ preventScroll: true });
     });
 
     return () => cancelAnimationFrame(frame);
   }, []);
+
+  useEffect(() => {
+    if (!canContinue) return;
+
+    const continueOnShortcut = (event: globalThis.KeyboardEvent) => {
+      if (event.repeat || !isSubmitShortcut(event)) return;
+
+      event.preventDefault();
+      router.push(nextStepHref);
+    };
+    window.addEventListener("keydown", continueOnShortcut);
+
+    return () => window.removeEventListener("keydown", continueOnShortcut);
+  }, [canContinue, nextStepHref, router]);
 
   const handleAnswerChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
     const { value } = event.currentTarget;
@@ -99,7 +124,7 @@ export function InterviewStep({
   };
 
   const handleAnswerKeyDown = (event: KeyboardEvent<HTMLTextAreaElement>) => {
-    if ((event.metaKey || event.ctrlKey) && event.key === "Enter") {
+    if (isSubmitShortcut(event)) {
       event.preventDefault();
       event.currentTarget.form?.requestSubmit();
     }
@@ -140,12 +165,19 @@ export function InterviewStep({
 
   return (
     <ExperienceShell phase={phase} progress={progress}>
-      <div ref={panelRef} className="interview-step">
+      <div className="interview-step">
         {phase === "question" ? (
           <div className="question-content phase-content">
             <span className="meta-label">RHEA ASKS</span>
 
-            {children}
+            <h1
+              ref={promptHeadingRef}
+              className="question-prompt"
+              tabIndex={-1}
+            >
+              {prompt}
+            </h1>
+            <p className="question-whisper">{whisper}</p>
 
             <form onSubmit={submitResponse} className="response-form">
               <FieldGroup>
@@ -232,15 +264,18 @@ export function InterviewStep({
               </div>
             )}
 
-            <Button
-              size="cta"
-              onClick={() => router.push(stepHref(step))}
-              disabled={reflectionView === null}
-              className="primary-action reflection-action shadow-glow"
-            >
-              {step.kind === "result" ? "SEE WHAT SHE SAW" : "STAY WITH HER"}
-              <ArrowRight data-icon="inline-end" />
-            </Button>
+            <div className="reflection-actions">
+              <span className="reflection-shortcut">CTRL + ENTER</span>
+              <Button
+                size="cta"
+                onClick={() => router.push(nextStepHref)}
+                disabled={!canContinue}
+                className="primary-action shadow-glow"
+              >
+                {step.kind === "result" ? "SEE WHAT SHE SAW" : "STAY WITH HER"}
+                <ArrowRight data-icon="inline-end" />
+              </Button>
+            </div>
           </div>
         )}
       </div>

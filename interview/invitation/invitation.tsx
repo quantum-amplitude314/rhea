@@ -1,7 +1,7 @@
 import { ArrowRight } from "lucide-react";
-import { ExperienceShell } from "@/components/interview/experience-shell";
-import { Headline } from "@/components/interview/headline";
-import { StartInterviewForm } from "@/components/interview/start-interview-form";
+import { ExperienceShell } from "@/interview/shell/experience-shell";
+import { Headline } from "@/interview/shell/headline";
+import { StartInterviewForm } from "@/interview/start/start-interview-form";
 import { cn } from "@/lib/utils";
 import styles from "./invitation.module.css";
 

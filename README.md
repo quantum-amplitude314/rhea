@@ -10,8 +10,10 @@ The app's own algorithm and data model decide how Rhea replies and what the fina
 
 This repository is the public frontend only.
 
-- `app/`, `components/`, `lib/`: Next.js 16 frontend, deployed to Cloudflare
-  Workers with OpenNext.
+- Next.js 16 frontend, deployed to Cloudflare Workers with OpenNext:
+  - `app/`: routes, layout, global styles.
+  - `interview/`: the interview feature, its screens, styles and server code.
+  - `components/ui/`, `lib/utils.ts`: shadcn primitives.
 - `contracts/`: the public API contract (`@rhea/contracts`), oRPC routes and Zod
   schemas.
 
@@ -26,7 +28,7 @@ Browser ──► Next.js on Cloudflare Workers ──► rhea-api Worker
 ```
 
 - The browser talks only to the Next.js app. Server Components and Server Actions
-  call the API through a server-only oRPC client (`lib/api.ts`) built from
+  call the API through a server-only oRPC client (`interview/server/api.ts`) built from
   `contracts/`, forwarding the HttpOnly `rhea_session` cookie.
 - Every mode reaches the API through the `API` service binding: `bun run dev` and
   `bun run preview` connect to the local `rhea-api` dev server through Wrangler's

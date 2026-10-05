@@ -2,9 +2,12 @@
 
 import { LoaderCircle } from "lucide-react";
 import { type ReactNode, useActionState, useState } from "react";
-import { type StartInterviewState, startInterview } from "@/app/actions";
-import { TurnstileWidget } from "@/components/interview/turnstile-widget";
 import { Button } from "@/components/ui/button";
+import {
+  type StartInterviewState,
+  startInterview,
+} from "@/interview/server/actions";
+import { TurnstileWidget } from "@/interview/start/turnstile-widget";
 
 const initialState: StartInterviewState = { verificationFailed: false };
 

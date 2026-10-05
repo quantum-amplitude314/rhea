@@ -29,7 +29,6 @@ const TITLE = "The Rhea Project | A Modern Voight-Kampff Test";
 const DESCRIPTION =
   "A modern Voight-Kampff test adaptation. An encounter with Rhea, an artificial being unsure whether her memories are her own.";
 
-// The shared image comes from opengraph-image.jpg beside this layout; X falls back to it.
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: TITLE,

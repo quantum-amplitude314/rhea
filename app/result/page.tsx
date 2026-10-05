@@ -1,8 +1,8 @@
 import { ORPCError } from "@orpc/client";
 import { redirect } from "next/navigation";
-import { ResultView } from "@/components/interview/result-view";
-import { apiClient } from "@/lib/api";
-import { readSessionId } from "@/lib/session/cookie";
+import { ResultView } from "@/interview/result/result-view";
+import { apiClient } from "@/interview/server/api";
+import { readSessionId } from "@/interview/server/session-cookie";
 
 export const dynamic = "force-dynamic";
 

@@ -1,5 +1,3 @@
-/* Start form with Turnstile, and the result-page action row that hosts it. */
-
 .start-interview,
 .result-actions {
   display: flex;

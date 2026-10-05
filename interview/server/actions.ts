@@ -1,10 +1,11 @@
 "use server";
 
 import { ORPCError } from "@orpc/client";
+import type { Submission } from "@rhea/contracts";
 import { redirect } from "next/navigation";
-import { apiClient } from "@/lib/api";
-import { FIRST_POSITION, stepHref } from "@/lib/interview/navigation";
-import { writeSessionId } from "@/lib/session/cookie";
+import { FIRST_POSITION, stepHref } from "@/interview/navigation";
+import { apiClient } from "@/interview/server/api";
+import { writeSessionId } from "@/interview/server/session-cookie";
 
 export type StartInterviewState = { verificationFailed: boolean };
 
@@ -33,4 +34,10 @@ export const startInterview = async (
   await writeSessionId(sessionId);
 
   redirect(stepHref({ kind: "question", position: FIRST_POSITION }));
+};
+
+export const submitAnswer = async (submission: Submission) => {
+  const reflection = await apiClient.interview.submit(submission);
+
+  return reflection;
 };

@@ -1,4 +1,4 @@
-import { Invitation } from "@/components/interview/invitation";
+import { Invitation } from "@/interview/invitation/invitation";
 
 const Page = () => <Invitation />;
 

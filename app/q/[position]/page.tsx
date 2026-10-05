@@ -1,9 +1,9 @@
 import { ORPCError } from "@orpc/client";
 import { notFound, redirect } from "next/navigation";
-import { InterviewStep } from "@/components/interview/interview-step";
-import { apiClient } from "@/lib/api";
-import { parsePosition } from "@/lib/interview/navigation";
-import { readSessionId } from "@/lib/session/cookie";
+import { parsePosition } from "@/interview/navigation";
+import { apiClient } from "@/interview/server/api";
+import { readSessionId } from "@/interview/server/session-cookie";
+import { InterviewStep } from "@/interview/step/interview-step";
 
 export const dynamic = "force-dynamic";
 
@@ -31,11 +31,12 @@ export default async function Page({
     });
 
   return (
-    <InterviewStep key={position} position={position} total={total}>
-      <h1 className="question-prompt" tabIndex={-1} data-phase-heading>
-        {prompt}
-      </h1>
-      <p className="question-whisper">{whisper}</p>
-    </InterviewStep>
+    <InterviewStep
+      key={position}
+      position={position}
+      total={total}
+      prompt={prompt}
+      whisper={whisper}
+    />
   );
 }

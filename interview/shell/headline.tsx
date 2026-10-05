@@ -1,7 +1,6 @@
 import type { ComponentProps } from "react";
 import { TextReveal } from "@/components/ui/text-reveal";
 
-// Two-line display heading shared by the invitation and the result.
 export function Headline({
   primary,
   secondary,

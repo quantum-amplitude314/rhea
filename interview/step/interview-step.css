@@ -1,5 +1,3 @@
-/* Question, answer form, reflection, and listening indicator. */
-
 @keyframes listening-pulse {
   0%,
   100% {
@@ -181,8 +179,18 @@
   animation-delay: 0.4s;
 }
 
-.reflection-action {
-  align-self: flex-end;
+.reflection-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+.reflection-shortcut {
+  color: var(--muted-foreground);
+  font-family: var(--font-mono), monospace;
+  font-size: var(--text-meta);
+  letter-spacing: 0.06em;
 }
 
 @media (max-width: 860px) {
@@ -203,7 +211,8 @@
 }
 
 @media (max-width: 560px) {
-  .response-shortcut {
+  .response-shortcut,
+  .reflection-shortcut {
     display: none;
   }
 

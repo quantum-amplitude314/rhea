@@ -3,10 +3,10 @@
 import type { ExperienceResult } from "@rhea/contracts";
 import { Orbit, RotateCcw } from "lucide-react";
 import { useState } from "react";
-import { ExperienceShell } from "@/components/interview/experience-shell";
-import { Headline } from "@/components/interview/headline";
-import { StartInterviewForm } from "@/components/interview/start-interview-form";
 import { Button } from "@/components/ui/button";
+import { ExperienceShell } from "@/interview/shell/experience-shell";
+import { Headline } from "@/interview/shell/headline";
+import { StartInterviewForm } from "@/interview/start/start-interview-form";
 import styles from "./result-view.module.css";
 
 const pad = (value: number) => String(value).padStart(2, "0");

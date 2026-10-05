@@ -2,9 +2,9 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
-@import "./styles/phase.css";
-@import "./styles/start-form.css";
-@import "./styles/interview-step.css";
+@import "../interview/shell/phase.css";
+@import "../interview/start/start-form.css";
+@import "../interview/step/interview-step.css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -137,7 +137,6 @@
   }
 }
 
-/* Mono caption label used on the question, reflection, and result pages. */
 @utility meta-label {
   color: var(--muted-foreground);
   font-family: var(--font-mono), monospace;

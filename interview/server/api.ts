@@ -6,7 +6,7 @@ import type { ContractRouterClient } from "@orpc/contract";
 import type { JsonifiedClient } from "@orpc/openapi-client";
 import { OpenAPILink } from "@orpc/openapi-client/fetch";
 import { type Contract, contract, SESSION_COOKIE } from "@rhea/contracts";
-import { readSessionId } from "@/lib/session/cookie";
+import { readSessionId } from "@/interview/server/session-cookie";
 
 const fetchThroughBinding = async (request: Request) => {
   const { env } = await getCloudflareContext({ async: true });

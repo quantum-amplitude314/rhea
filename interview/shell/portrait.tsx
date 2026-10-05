@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { QaCredit } from "@/components/qa-credit";
+import { QaCredit } from "@/interview/shell/qa-credit";
 import { cn } from "@/lib/utils";
 import styles from "./portrait.module.css";
 
