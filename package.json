@@ -44,5 +44,6 @@
     "typescript": "^7.0.2",
     "wrangler": "^4.137.0"
   },
-  "packageManager": "bun@1.4.2"
+  "packageManager": "bun@1.4.2",
+  "trustedDependencies": []
 }

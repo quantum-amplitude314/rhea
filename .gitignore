@@ -1,32 +1,27 @@
-# dependencies
 node_modules/
 
-# next.js
-/.next/
-/out/
-
-# OpenNext / Cloudflare
-/.open-next/
-/.wrangler/
-cloudflare-env.d.ts
-
-# local environment files
-.env*
-!.env.example
-
-# generated artifacts
-*.tsbuildinfo
+.next/
+out/
 next-env.d.ts
 
-# system files
+.open-next/
+.wrangler/
+cloudflare-env.d.ts
+
+.env*
+!.env.example
+.dev.vars*
+
+*.tsbuildinfo
 .DS_Store
 
-# wrangler local secrets
-.dev.vars
 docs/
-/backend/
+backend/
+backendTest/
+
+# agent files
 .agents
-AGENTS.md 
+AGENTS.md
 CLAUDE.md
 .claude/
 .opencode/

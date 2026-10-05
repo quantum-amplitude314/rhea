@@ -28,13 +28,9 @@ Browser ──► Next.js on Cloudflare Workers ──► rhea-api Worker
 - The browser talks only to the Next.js app. Server Components and Server Actions
   call the API through a server-only oRPC client (`lib/api.ts`) built from
   `contracts/`, forwarding the HttpOnly `rhea_session` cookie.
-- `lib/api-transport.ts` picks the transport:
-
-| Mode              | Transport                                                                        |
-| ----------------- | -------------------------------------------------------------------------------- |
-| `bun run dev`     | HTTP to `API_URL` (default `http://127.0.0.1:3001`)                              |
-| `bun run preview` | Service binding `API` to the local `rhea-api` dev server (Wrangler dev registry) |
-| `bun run deploy`  | Service binding `API` to the deployed `rhea-api` Worker                          |
+- Every mode reaches the API through the `API` service binding: `bun run dev` and
+  `bun run preview` connect to the local `rhea-api` dev server through Wrangler's
+  dev registry, `bun run deploy` to the deployed `rhea-api` Worker.
 
 ## Prerequisites
 

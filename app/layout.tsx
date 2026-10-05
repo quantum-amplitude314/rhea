@@ -34,6 +34,10 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: TITLE,
   description: DESCRIPTION,
+  icons: {
+    icon: { url: "/icon.jpg", type: "image/jpeg", sizes: "192x192" },
+    apple: { url: "/apple-icon.jpg", type: "image/jpeg", sizes: "180x180" },
+  },
   openGraph: {
     type: "website",
     url: "/",

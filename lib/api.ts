@@ -1,15 +1,23 @@
 import "server-only";
 
+import { getCloudflareContext } from "@opennextjs/cloudflare";
 import { createORPCClient } from "@orpc/client";
 import type { ContractRouterClient } from "@orpc/contract";
 import type { JsonifiedClient } from "@orpc/openapi-client";
 import { OpenAPILink } from "@orpc/openapi-client/fetch";
 import { type Contract, contract, SESSION_COOKIE } from "@rhea/contracts";
-import { apiFetch, getApiBaseUrl } from "@/lib/api-transport";
 import { readSessionId } from "@/lib/session/cookie";
 
+const fetchThroughBinding = async (request: Request) => {
+  const { env } = await getCloudflareContext({ async: true });
+  const response = await env.API.fetch(request);
+
+  return response;
+};
+
 const link = new OpenAPILink(contract, {
-  url: getApiBaseUrl,
+  // Placeholder host, never resolved: https://developers.cloudflare.com/workers/cache/cache-keys/#service-binding-url
+  url: "https://api.internal",
   headers: async () => {
     const sessionId = await readSessionId();
     const headers = new Headers();
@@ -22,7 +30,7 @@ const link = new OpenAPILink(contract, {
 
     return headers;
   },
-  fetch: (request, init) => apiFetch(new Request(request, init)),
+  fetch: (request, init) => fetchThroughBinding(new Request(request, init)),
 });
 
 export const apiClient: JsonifiedClient<ContractRouterClient<Contract>> =
