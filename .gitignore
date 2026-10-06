@@ -14,10 +14,12 @@ cloudflare-env.d.ts
 
 *.tsbuildinfo
 .DS_Store
+.ignore
 
+# private: nested repos and local workspace members
+apps/api/
+apps/backend-test/
 docs/
-backend/
-backendTest/
 
 # agent files
 .agents

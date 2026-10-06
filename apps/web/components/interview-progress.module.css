@@ -1,0 +1,46 @@
+.rail {
+  position: absolute;
+  top: calc(2.75rem + env(safe-area-inset-top));
+  right: clamp(2rem, 5vw, 5.75rem);
+  left: clamp(2rem, 5vw, 5.75rem);
+}
+
+.progress {
+  display: block;
+}
+
+.progress [data-slot="progress-track"] {
+  height: 2px;
+  border-radius: 0;
+  background: color-mix(in oklab, var(--muted-foreground) 22%, transparent);
+}
+
+.progress [data-slot="progress-indicator"] {
+  background: linear-gradient(to right, var(--electric-magenta), var(--electric-cyan));
+  box-shadow: 0 0 14px oklch(0.72 0.16 209 / 30%);
+  transition-duration: 500ms;
+  transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (max-width: 1100px) {
+  .rail {
+    right: 2.25rem;
+    left: 2.25rem;
+  }
+}
+
+@media (max-width: 860px) {
+  .rail {
+    top: 1rem;
+    right: max(1.25rem, env(safe-area-inset-right));
+    left: max(1.25rem, env(safe-area-inset-left));
+    max-width: 42rem;
+    margin-inline: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .progress [data-slot="progress-indicator"] {
+    transition: none;
+  }
+}

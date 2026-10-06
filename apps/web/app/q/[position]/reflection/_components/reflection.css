@@ -1,0 +1,127 @@
+@keyframes listening-pulse {
+  0%,
+  100% {
+    opacity: 0.25;
+    transform: scale(0.85);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+}
+
+.reflection-content {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.5rem, 3.4vh, 2.8rem);
+}
+
+.response-echo,
+.rhea-reflection {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.response-echo blockquote {
+  max-width: 40rem;
+  margin: 0;
+  color: color-mix(in oklab, var(--foreground) 72%, var(--muted-foreground));
+  font-size: clamp(1.05rem, 1.25vw, 1.2rem);
+  font-style: italic;
+  line-height: 1.65;
+  overflow-wrap: anywhere;
+}
+
+.reflection-separator {
+  background: linear-gradient(to right, var(--electric-magenta), var(--electric-cyan), transparent);
+  opacity: 0.42;
+}
+
+.rhea-reflection h1 {
+  display: grid;
+  max-width: 18ch;
+  margin: 0;
+  font-family: var(--font-heading), serif;
+  font-size: clamp(1.75rem, 3.15vw, 3.5rem);
+  font-weight: 400;
+  letter-spacing: -0.015em;
+  line-height: 1.15;
+  text-wrap: wrap;
+}
+
+.rhea-reflection h1 > .typing-reserve {
+  grid-area: 1 / 1;
+  visibility: hidden;
+}
+
+.rhea-reflection h1 > .typing-visible {
+  grid-area: 1 / 1;
+  letter-spacing: inherit;
+}
+
+.reflection-echo {
+  max-width: 40rem;
+  margin: 0;
+  color: color-mix(in oklab, var(--electric-magenta) 65%, var(--foreground));
+  font-size: var(--text-supporting);
+  font-style: italic;
+  line-height: 1.6;
+}
+
+.listening-indicator {
+  display: flex;
+  gap: 0.55rem;
+  margin: 0.4rem 0 0;
+  min-height: clamp(1.75rem, 3.15vw, 3.5rem);
+  align-items: center;
+}
+
+.listening-indicator > span {
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 50%;
+  background: var(--electric-cyan);
+  opacity: 0.35;
+  animation: listening-pulse 1.4s ease-in-out infinite;
+}
+
+.listening-indicator > span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.listening-indicator > span:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+.reflection-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+.reflection-shortcut {
+  color: var(--muted-foreground);
+  font-family: var(--font-mono), monospace;
+  font-size: var(--text-meta);
+  letter-spacing: 0.06em;
+}
+
+@media (max-width: 860px) {
+  .rhea-reflection h1 {
+    max-width: 23ch;
+  }
+}
+
+@media (max-width: 560px) {
+  .reflection-shortcut {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .listening-indicator > span {
+    animation: none;
+  }
+}
