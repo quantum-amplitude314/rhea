@@ -1,23 +1,18 @@
 # The Rhea Project
 
-![The Rhea Project: Do you dream or remember?](app/opengraph-image.jpg)
+![The Rhea Project: Do you dream or remember?](apps/web/app/opengraph-image.jpg)
 
-A modern Voight-Kampff test adaptation. Rhea, a synthetic being, asks five questions
-and you answer in your own words. A small Mistral AI model categorizes each answer.
+A modern Voight-Kampff test adaptation.
+Rhea, a synthetic being, asks five questions and you answer in your own words.
+A small Mistral AI model categorizes each answer.
 The app's own algorithm and data model decide how Rhea replies and what the final verdict is.
 
 ## What is in this repository
 
-This repository is the public frontend only.
-
-- Next.js 16 frontend, deployed to Cloudflare Workers with OpenNext:
-  - `app/`: routes, layout, global styles.
-  - `interview/`: the interview feature, its screens, styles and server code.
-  - `components/ui/`, `lib/utils.ts`: shadcn primitives.
-- `contracts/`: the public API contract (`@rhea/contracts`), oRPC routes and Zod
-  schemas.
-
-API implementation should follow `contracts/`.
+The frontend (`apps/web`) and the API contract (`packages/contracts`). The API is not
+included: implement `@rhea/contracts` in `apps/api` with any model or stack, recommending,
+for example, the new Cloudflare [Clef](https://blog.cloudflare.com/clef-decision-models/),
+released on 2026-10-01.
 
 ## Architecture
 
@@ -28,36 +23,27 @@ Browser ──► Next.js on Cloudflare Workers ──► rhea-api Worker
 ```
 
 - The browser talks only to the Next.js app. Server Components and Server Actions
-  call the API through a server-only oRPC client (`interview/server/api.ts`) built from
-  `contracts/`, forwarding the HttpOnly `rhea_session` cookie.
-- Every mode reaches the API through the `API` service binding: `bun run dev` and
-  `bun run preview` connect to the local `rhea-api` dev server through Wrangler's
+  call the API through a server-only oRPC client (`apps/web/server/api.ts`) built from
+  `@rhea/contracts`, forwarding the HttpOnly `rhea_session` cookie.
+- Every mode reaches the API through the `API` service binding: `bun run dev:web` and,
+  in `apps/web`, `bun run preview` connect to the local `rhea-api` dev server through Wrangler's
   dev registry, `bun run deploy` to the deployed `rhea-api` Worker.
-
-## Prerequisites
-
-- Bun 1.4.2
-- Biome 2.5.15, installed globally
 
 ## Setup
 
 ```zsh
+curl -fsSL https://bun.com/install | bash   # see https://bun.com/docs/installation
+bun add -g @biomejs/biome                   # or bun add -d @biomejs/biome
 bun install
-cp .env.example .env.local
+cp apps/web/.env.example apps/web/.env.local
 ```
 
 ## Development
 
 ```zsh
-bun run dev
+bun run dev:api   # your API in apps/api
+bun run dev:web
 ```
-
-Open <http://localhost:3000>.
-
-Every interview starts behind Cloudflare Turnstile. `.env.example` lists the
-site keys: Cloudflare's test keys for development and the real key for
-production. `NEXT_PUBLIC_TURNSTILE_SITE_KEY` must be set; `bun run dev` and
-builds fail without it.
 
 ## Checks
 
@@ -65,18 +51,6 @@ builds fail without it.
 bun run lint-fix
 bun run typecheck
 ```
-
-## Routes
-
-| Path                       | Screen                                    |
-| -------------------------- | ----------------------------------------- |
-| `/`                        | Invitation                                |
-| `/q/[position]`            | Question                                  |
-| `/q/[position]/reflection` | Your answer and Rhea's reply, streamed in |
-| `/result`                  | Verdict; `?details=open` shows details    |
-
-`proxy.ts` sends `/q/*` and `/result` back to `/` without a session cookie. The
-portrait's per-route line comes from the `@portrait` parallel route.
 
 ## License
 
