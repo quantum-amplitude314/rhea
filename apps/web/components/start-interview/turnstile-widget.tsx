@@ -2,6 +2,7 @@
 
 import Script from "next/script";
 import { useEffect, useState } from "react";
+import { publicEnv } from "@/lib/public-env";
 
 type TurnstileApi = {
   render: (container: HTMLElement, options: TurnstileRenderOptions) => string;
@@ -28,14 +29,7 @@ declare global {
 const TURNSTILE_SCRIPT_URL =
   "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
 
-const readSiteKey = () => {
-  const siteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
-  if (!siteKey) throw new Error("NEXT_PUBLIC_TURNSTILE_SITE_KEY is not set");
-
-  return siteKey;
-};
-
-const siteKey = readSiteKey();
+const { NEXT_PUBLIC_TURNSTILE_SITE_KEY: siteKey } = publicEnv;
 
 export function TurnstileWidget({
   onTokenChange,

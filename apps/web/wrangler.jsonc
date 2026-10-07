@@ -6,6 +6,9 @@
   "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
   "routes": [{ "pattern": "rhea.quantum-amplitude.tech", "custom_domain": true }],
   "workers_dev": false,
+  "vars": {
+    "WEB_ORIGIN": "https://rhea.quantum-amplitude.tech"
+  },
   "assets": {
     "directory": ".open-next/assets",
     "binding": "ASSETS"
