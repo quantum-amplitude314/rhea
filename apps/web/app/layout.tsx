@@ -24,6 +24,13 @@ const monoFont = Geist_Mono({
 const TITLE = "The Rhea Project | A Modern Voight-Kampff Test";
 const DESCRIPTION =
   "A modern Voight-Kampff test adaptation. An encounter with Rhea, an artificial being unsure whether her memories are her own.";
+const SHARE_IMAGE = {
+  url: "/og-image-v1.jpg",
+  type: "image/jpeg",
+  width: 1200,
+  height: 630,
+  alt: "Rhea, a synthetic woman with neon-streaked hair, beside the question: Do you dream or remember?",
+};
 
 export const generateMetadata = async () => {
   const { WEB_ORIGIN: webOrigin } = await getEnv();
@@ -42,6 +49,7 @@ export const generateMetadata = async () => {
       title: TITLE,
       description: DESCRIPTION,
       locale: "en_US",
+      images: SHARE_IMAGE,
     },
     twitter: { card: "summary_large_image" },
   };

@@ -1,6 +1,6 @@
 # The Rhea Project
 
-![The Rhea Project: Do you dream or remember?](apps/web/app/opengraph-image.jpg)
+![The Rhea Project: Do you dream or remember?](apps/web/public/og-image-v1.jpg)
 
 A modern Voight-Kampff test adaptation.
 Rhea, a synthetic being, asks five questions and you answer in your own words.
